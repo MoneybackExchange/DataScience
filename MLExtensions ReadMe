@@ -1,0 +1,180 @@
+Library "MLExtensions"
+
+normalizeDeriv(src, quadraticMeanLength)
+  Returns the smoothed hyperbolic tangent of the input series.
+  Parameters:
+    src: <series float> The input series (i.e., the first-order derivative for price).
+    quadraticMeanLength: <int> The length of the quadratic mean (RMS).
+  Returns: nDeriv <series float> The normalized derivative of the input series.
+
+normalize(src, min, max)
+  Rescales a source value with an unbounded range to a target range.
+  Parameters:
+    src: <series float> The input series
+    min: <float> The minimum value of the unbounded range
+    max: <float> The maximum value of the unbounded range
+  Returns: <series float> The normalized series
+
+rescale(src, oldMin, oldMax, newMin, newMax)
+  Rescales a source value with a bounded range to anther bounded range
+  Parameters:
+    src: <series float> The input series
+    oldMin: <float> The minimum value of the range to rescale from
+    oldMax: <float> The maximum value of the range to rescale from
+    newMin: <float> The minimum value of the range to rescale to
+    newMax: <float> The maximum value of the range to rescale to
+  Returns: <series float> The rescaled series
+
+color_green(prediction)
+  Assigns varying shades of the color green based on the KNN classification
+  Parameters:
+    prediction: Value (int|float) of the prediction
+  Returns: color <color>
+
+color_red(prediction)
+  Assigns varying shades of the color red based on the KNN classification
+  Parameters:
+    prediction: Value of the prediction
+  Returns: color
+
+tanh(src)
+  Returns the the hyperbolic tangent of the input series. The sigmoid-like hyperbolic tangent function is used to compress the input to a value between -1 and 1.
+  Parameters:
+    src: <series float> The input series (i.e., the normalized derivative).
+  Returns: tanh <series float> The hyperbolic tangent of the input series.
+
+dualPoleFilter(src, lookback)
+  Returns the smoothed hyperbolic tangent of the input series.
+  Parameters:
+    src: <series float> The input series (i.e., the hyperbolic tangent).
+    lookback: <int> The lookback window for the smoothing.
+  Returns: filter <series float> The smoothed hyperbolic tangent of the input series.
+
+tanhTransform(src, smoothingFrequency, quadraticMeanLength)
+  Returns the tanh transform of the input series.
+  Parameters:
+    src: <series float> The input series (i.e., the result of the tanh calculation).
+    smoothingFrequency
+    quadraticMeanLength
+  Returns: signal <series float> The smoothed hyperbolic tangent transform of the input series.
+
+n_rsi(src, n1, n2)
+  Returns the normalized RSI ideal for use in ML algorithms.
+  Parameters:
+    src: <series float> The input series (i.e., the result of the RSI calculation).
+    n1: <int> The length of the RSI.
+    n2: <int> The smoothing length of the RSI.
+  Returns: signal <series float> The normalized RSI.
+
+n_cci(src, n1, n2)
+  Returns the normalized CCI ideal for use in ML algorithms.
+  Parameters:
+    src: <series float> The input series (i.e., the result of the CCI calculation).
+    n1: <int> The length of the CCI.
+    n2: <int> The smoothing length of the CCI.
+  Returns: signal <series float> The normalized CCI.
+
+n_wt(src, n1, n2)
+  Returns the normalized WaveTrend Classic series ideal for use in ML algorithms.
+  Parameters:
+    src: <series float> The input series (i.e., the result of the WaveTrend Classic calculation).
+    n1
+    n2
+  Returns: signal <series float> The normalized WaveTrend Classic series.
+
+n_adx(highSrc, lowSrc, closeSrc, n1)
+  Returns the normalized ADX ideal for use in ML algorithms.
+  Parameters:
+    highSrc: <series float> The input series for the high price.
+    lowSrc: <series float> The input series for the low price.
+    closeSrc: <series float> The input series for the close price.
+    n1: <int> The length of the ADX.
+
+regime_filter(src, threshold, useRegimeFilter)
+  Parameters:
+    src
+    threshold
+    useRegimeFilter
+
+filter_adx(src, length, adxThreshold, useAdxFilter)
+  filter_adx
+  Parameters:
+    src: <series float> The source series.
+    length: <int> The length of the ADX.
+    adxThreshold: <int> The ADX threshold.
+    useAdxFilter: <bool> Whether to use the ADX filter.
+  Returns: <series float> The ADX.
+
+filter_volatility(minLength, maxLength, useVolatilityFilter)
+  filter_volatility
+  Parameters:
+    minLength: <int> The minimum length of the ATR.
+    maxLength: <int> The maximum length of the ATR.
+    useVolatilityFilter: <bool> Whether to use the volatility filter.
+  Returns: <bool> Boolean indicating whether or not to let the signal pass through the filter.
+
+backtest(high, low, open, startLongTrade, endLongTrade, startShortTrade, endShortTrade, isStopLossHit, maxBarsBackIndex, thisBarIndex)
+  Performs a basic backtest using the specified parameters and conditions.
+  Parameters:
+    high: <series float> The input series for the high price.
+    low: <series float> The input series for the low price.
+    open: <series float> The input series for the open price.
+    startLongTrade: <series bool> The series of conditions that indicate the start of a long trade.`
+    endLongTrade: <series bool> The series of conditions that indicate the end of a long trade.
+    startShortTrade: <series bool> The series of conditions that indicate the start of a short trade.
+    endShortTrade: <series bool> The series of conditions that indicate the end of a short trade.
+    isStopLossHit: <bool> The stop loss hit indicator.
+    maxBarsBackIndex: <int> The maximum number of bars to go back in the backtest.
+    thisBarIndex: <int> The current bar index.
+  Returns: <tuple strings> A tuple containing backtest values
+
+init_table()
+  init_table()
+  Returns: tbl <series table> The backtest results.
+
+update_table(tbl, tradeStatsHeader, totalTrades, totalWins, totalLosses, winLossRatio, winrate, stopLosses)
+  update_table(tbl, tradeStats)
+  Parameters:
+    tbl: <series table> The backtest results table.
+    tradeStatsHeader: <string> The trade stats header.
+    totalTrades: <float> The total number of trades.
+    totalWins: <float> The total number of wins.
+    totalLosses: <float> The total number of losses.
+    winLossRatio: <float> The win loss ratio.
+    winrate: <float> The winrate.
+    stopLosses: <float> The total number of stop losses.
+  Returns: <void> Updated backtest results table.
+Feb 6
+Release Notes:
+v2
+
+Updated:
+backtest(high, low, open, startLongTrade, endLongTrade, startShortTrade, endShortTrade, isEarlySignalFlip, maxBarsBackIndex, thisBarIndex, src, useWorstCase)
+  Performs a basic backtest using the specified parameters and conditions.
+  Parameters:
+    high: The input series for the high price.
+    low: The input series for the low price.
+    open: The input series for the open price.
+    startLongTrade: The series of conditions that indicate the start of a long trade.
+    endLongTrade: The series of conditions that indicate the end of a long trade.
+    startShortTrade: The series of conditions that indicate the start of a short trade.
+    endShortTrade: The series of conditions that indicate the end of a short trade.
+    isEarlySignalFlip: Whether or not the signal flip is early.
+    maxBarsBackIndex: The maximum number of bars to go back in the backtest.
+    thisBarIndex: The current bar index.
+    src: The source series.
+    useWorstCase: Whether to use the worst case scenario for the backtest.
+  Returns: A tuple containing backtest values
+
+update_table(tbl, tradeStatsHeader, totalTrades, totalWins, totalLosses, winLossRatio, winrate, earlySignalFlips)
+  update_table(tbl, tradeStats)
+  Parameters:
+    tbl: The backtest results table.
+    tradeStatsHeader: The trade stats header.
+    totalTrades: The total number of trades.
+    totalWins: The total number of wins.
+    totalLosses: The total number of losses.
+    winLossRatio: The win loss ratio.
+    winrate: The winrate.
+    earlySignalFlips: The total number of early signal flips.
+  Returns: Updated backtest results table.
